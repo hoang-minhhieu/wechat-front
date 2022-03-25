@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import NavbarContainer from "../../Navbar/container/NavbarContainer";
+import "../style/Chat.css";
+import { useLocation } from 'react-router-dom';
+import { SocketContext } from "../../Context/Socket";
 
-function Chat({ socket, username, room }) {
+function ChatComponent() {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const location = useLocation();
+  const socket = useContext(SocketContext);
+  const username = location.state.username;
+  const room = location.state.room
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -31,11 +39,12 @@ function Chat({ socket, username, room }) {
 
   return (
     <div className="chat-window">
-      <div className="chat-header">
-        <p>Live Chat</p>
+      <div className="nav">
+          <NavbarContainer/>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
+        <p>Welcome to the chat room!</p>
           {messageList.map((messageContent) => {
             return (
               <div
@@ -60,7 +69,7 @@ function Chat({ socket, username, room }) {
         <input
           type="text"
           value={currentMessage}
-          placeholder="Hey..."
+          placeholder="Envoyer un message"
           onChange={(event) => {
             setCurrentMessage(event.target.value);
           }}
@@ -74,4 +83,4 @@ function Chat({ socket, username, room }) {
   );
 }
 
-export default Chat;
+export default ChatComponent;
