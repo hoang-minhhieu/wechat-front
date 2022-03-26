@@ -2,21 +2,42 @@ body {
     background-color: black;
 }
 
-.chat-zone {
+.chat-window {
     width: 55%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 10px;
-    display: grid;
+    display: flex;
+    background-color: rgb(239, 238, 241);
+    border-radius: 8px;
+}
+
+.chat-list-users {
+    background-color: rgb(239, 238, 241);
+    width: 25%;
+    float: left;
+}
+
+.chat-list-users p {
+    display: flex;
+    font-size: 1.1rem;
+    width: 75%;
+    margin-top: 5px;
+}
+
+.chat-zone {
+    width: 75%;
+    float: right;
     background-color: rgb(239, 238, 241);
 }
 
 .chat-zone p {
-    margin: auto;
     display: flex;
-    font-size: 1.3remssssssssss;
+    font-size: 1.1rem;
+    width: 75%;
+    margin-top: 5px;
 }
 
 .chat-zone .chat-body {
@@ -30,7 +51,7 @@ body {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .chat-zone .chat-body .message-container::-webkit-scrollbar {
@@ -117,4 +138,3 @@ aside.emoji-picker-react {
     bottom: calc(7vh + 5px) !important;
     position: absolute !important;
 }
-

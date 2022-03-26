@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { SocketContext } from "../../Context/Socket";
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import Picker from 'emoji-picker-react';
+import NavbarConnectedUsersComponent from "../../Navbar/component/NavbarConnectedUsersComponent";
 
 function ChatComponent() {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -14,6 +15,7 @@ function ChatComponent() {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const location = useLocation();
   const socket = useContext(SocketContext);
+  const connectedUsers = location.state.connectedUsers;
   const username = location.state.username;
   const room = location.state.room
   const userColor = location.state.userColor;
@@ -44,8 +46,8 @@ function ChatComponent() {
   }, [socket]);
   
   const onEmojiClick = (event, emojiObject) => {
-    setChosenEmoji(emojiObject);
-    setCurrentMessage(currentMessage + emojiObject.emoji);
+    setChosenEmoji(emojiObject.emoji);
+    setCurrentMessage(currentMessage + chosenEmoji);
   };
 
   function toggleEmojiPicker() {
@@ -55,45 +57,51 @@ function ChatComponent() {
   return (
     <div className="chat-screen">
       <NavbarContainer username={username}/>
-      <div className="chat-zone">        
-        <div className="chat-body">
-          <ScrollToBottom className="message-container">
-          <p>Welcome to the chat room!</p>
-            {messageList.map((messageContent) => {
-              return (
-                <div
-                  className="message"
-                  id={username === messageContent.author ? "you" : "other"}
-                >
-                  <div>
-                    <div className="message-content">
-                      <span style={{color: messageContent.userColor}} id="author">{messageContent.author}</span> : <span id="content">{messageContent.message}</span>
+      <div className="chat-window">
+        <div className="chat-list-users">
+          <p>Connected users</p>
+          <NavbarConnectedUsersComponent connectedUsers={connectedUsers}/>
+        </div>  
+        <div className="chat-zone">        
+          <div className="chat-body">
+            <ScrollToBottom className="message-container">
+            <p>Welcome to the chat room!</p>
+              {messageList.map((messageContent) => {
+                return (
+                  <div
+                    className="message"
+                    id={username === messageContent.author ? "you" : "other"}
+                  >
+                    <div>
+                      <div className="message-content">
+                        <span style={{color: messageContent.userColor}} id="author">{messageContent.author}</span> : <span id="content">{messageContent.message}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </ScrollToBottom>
-        </div>
-        <div className="chat-footer">
-          <input
-            type="text"
-            value={currentMessage}
-            placeholder="Send a message"
-            onChange={(event) => {
-              setCurrentMessage(event.target.value);
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && sendMessage();
-            }}
-          />
-          <div className="chat-selecticon">
-            <div className="chat-emojiPicker" onClick={() => toggleEmojiPicker()}>
-              <InsertEmoticonIcon></InsertEmoticonIcon>
-            </div>
-            {showEmojiPicker ? <Picker className="emojiPicker" onEmojiClick={onEmojiClick}/> : <></>}
+                );
+              })}
+            </ScrollToBottom>
           </div>
-        </div>
+          <div className="chat-footer">
+            <input
+              type="text"
+              value={currentMessage}
+              placeholder="Send a message"
+              onChange={(event) => {
+                setCurrentMessage(event.target.value);
+              }}
+              onKeyPress={(event) => {
+                event.key === "Enter" && sendMessage();
+              }}
+            />
+            <div className="chat-selecticon">
+              <div className="chat-emojiPicker" onClick={() => toggleEmojiPicker()}>
+                <InsertEmoticonIcon></InsertEmoticonIcon>
+              </div>
+              {showEmojiPicker ? <Picker className="emojiPicker" onEmojiClick={onEmojiClick}/> : <></>}
+            </div>
+          </div>         
+        </div> 
       </div>
     </div>    
   );

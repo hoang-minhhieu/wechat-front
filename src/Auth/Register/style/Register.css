@@ -4,7 +4,7 @@ body {
     background-color: white;
 }
 
-.login-container {
+.register-container {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -14,18 +14,18 @@ body {
     border-radius: 5px;
 }
 
-.login-container h3 {
+.register-container h3 {
     font-size: 2.5rem;
     margin: 4.5rem 0 1.5rem 0;
     text-align: center;
 }
 
-.login-card{
+.register-card{
     width: 100%;
     margin: auto;
 }
 
-.login-card-body{
+.register-card-body{
     height: fit-content;
     width: 650px !important;
     border: 3px solid #E73E03;
@@ -34,28 +34,28 @@ body {
     margin: auto;
 }
 
-.login-card-body label[first=ok] {
+.register-card-body label[first=ok] {
     margin: .3rem 0 3px 0;
 }
 
-.login-card-body label{
+.register-card-body label{
     font-size: 1rem !important;
     font-weight: bold !important;
     margin: .7rem 0 3px 0;
 }
 
-.login-card-body button{
+.register-card-body button{
     background-color: #f2f2f2;
     color: black;
     font-weight: bolder;
 }
 
-.login-card-body button:hover{
+.register-card-body button:hover{
     background-color: #dce1e1;
     color: black;
 }
 
-.login-card-body .f-right{
+.register-card-body .f-right{
     font-weight: 700;
     font-size: 1rem !important;
     text-transform: uppercase;
@@ -67,12 +67,31 @@ body {
     float: right;
 }
 
-.login-block{
+.register-block{
     width: 100%;
     margin: 7px 0;
 }
 
-.login-input-center .input{
+.register-card-row{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register-card-row input{
+    width: 100%;
+    font-size: 1.3rem !important;
+    margin-bottom: 30px;
+    height: 55px;
+}
+
+.register-block-password label{
+    display: block;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+
+.register-input-center .input{
     width: -webkit-fill-available;
     height: 40px;
     margin: auto;
@@ -86,49 +105,16 @@ body {
     margin-top: -36px;
     margin-right: 10px;
     position: relative;
-    z-index: 2;
+    z-index: 0;
     font-size: 1.6rem;
 }
 
-.forgotPassword {
-    display: flex;
-    align-items: flex-end;
-}
-
-.forgotPassword a{
-    color: black;
-    text-decoration: underline;
-    text-underline-position: under;
-    font-size: .875rem;
-    width: 100%;
-    text-align: right;
-    float: right;
-    margin: 7px 0 12px 0;
-}
-
-.login-bottom-container{
+.register-bottom-container{
+    margin-top: 20px;
     display: grid;
 }
 
-.newUser{
-    text-align: center;
-    margin: 10px 0;
-}
-
-.newUser div{
-    color: red !important;
-    text-decoration: underline !important;
-    cursor: pointer;
-    display: inherit;
-}
-
-.guest{
-    text-align: center;
-}
-
-.guest div{
-    color: green !important;
-    text-decoration: underline !important;
-    cursor: pointer;
-    display: inherit;
+.blank{
+    display: inline-block;
+    width: 34px;
 }

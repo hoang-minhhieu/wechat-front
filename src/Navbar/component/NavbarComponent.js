@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef  } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Navbar.css";
 import userIcon from "../../../src/assets/images/user_icon.png";
@@ -24,12 +24,12 @@ function NavbarComponent(props) {
         <div className={"navbar"}>
             <div className="accountDiv">                  
                 <button className="btn-profile" onClick={() => setDropdown(!dropdown)}>
-                    <img src={userIcon} alt='image' className="navbar-userIcon" style={styles.normalIcon}/>
+                    <img src={userIcon} alt="navbar-icon" className="navbar-userIcon" style={styles.normalIcon}/>
                 </button>
                 {dropdown && (
                     <div className="dropdown">
                         <ul>
-                        <li><img src={userIcon} className="navbar-userIcon" style={styles.largeIcon}/>{props.username}</li>
+                        <li><img src={userIcon} alt="profile-icon" className="navbar-userIcon" style={styles.largeIcon}/>{props.username}</li>
                         <li>My profile</li>
                         <li>Log out</li>
                         </ul>
