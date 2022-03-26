@@ -8,9 +8,9 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border: 5px solid rgb(24, 24, 27);
     padding: 10px;
     display: grid;
+    background-color: rgb(239, 238, 241);
 }
 
 .chat-zone p {
@@ -21,8 +21,7 @@ body {
 
 .chat-zone .chat-body {
     height: calc(450px - (45px + 70px));
-    border: 1px solid #263238;
-    background: rgba(239, 238, 241); 
+    background: rgb(239, 238, 241); 
     position: relative;
 }
 
@@ -31,6 +30,7 @@ body {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    font-size: 1.1rem;
 }
 
 .chat-zone .chat-body .message-container::-webkit-scrollbar {
@@ -39,69 +39,35 @@ body {
 
 .chat-zone .chat-body .message {
     height: auto;
-    padding: 10px;
     display: flex;
 }
 
 .chat-zone .chat-body .message .message-content {
     width: auto;
     height: auto;
-    min-height: 40px;
     width: 100%;
-    background-color: #43a047;
-    border-radius: 5px;
-    color: white;
     display: flex;
     align-items: center;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin: 5px 5px 5px 0;
     padding-right: 5px;
-    padding-left: 5px;
     overflow-wrap: break-word;
     word-break: break-word;
+    font-size: 1.3rem;
 }
 
-#you {
-    justify-content: flex-start;
-}
-
-#you .message-content {
-    justify-content: flex-start;
-}
-
-#you .message-meta {
-    justify-content: flex-start;
-    margin-left: 5px;
-}
-
-#other {
-    justify-content: flex-end;
-}
-
-#other .message-content {
-    justify-content: flex-end;
-    background-color: cornflowerblue;
-}
-
-#other .message-meta {
-    justify-content: flex-end;
-    margin-right: 5px;
-}
-
-.message-meta #author {
-    margin-left: 10px;
+.message-content #author {
     font-weight: bold;
+    margin-right: 2px;
 }
 
-.chat-zone .chat-body .message .message-meta {
-    display: flex;
-    font-size: 12px;
+.message-content #content {
+    margin-left: 5px;
 }
 
 .chat-zone .chat-footer {
     border: 1px solid #263238;
-    border-top: none;
     display: flex;
+    height: 7vh;
 }
 
 .chat-zone .chat-footer input {
@@ -113,6 +79,7 @@ body {
     border-right: 1px dotted #607d8b;
     outline: none;
     font-family: "Open Sans", sans-serif;
+    text-align: left;
 }
 
 .chat-zone .chat-footer button {

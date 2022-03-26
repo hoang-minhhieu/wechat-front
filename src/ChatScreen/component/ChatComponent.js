@@ -48,16 +48,17 @@ function ChatComponent() {
               return (
                 <div
                   className="message"
+                  key={messageContent.message}
                   id={username === messageContent.author ? "you" : "other"}
                 >
                   <div>
                     <div className="message-content">
-                      {messageContent.author + ":" + messageContent.message}
+                      <span id="author">{messageContent.author}</span> : <span id="content">{messageContent.message}</span>
                     </div>
-                    <div className="message-meta">
+                    {/* <div className="message-meta">
                       <p id="time">{messageContent.time}</p>
                       <p id="author">{messageContent.author}</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               );
@@ -76,7 +77,6 @@ function ChatComponent() {
               event.key === "Enter" && sendMessage();
             }}
           />
-          <button onClick={sendMessage}>&#9658;</button>
         </div>
       </div>
     </div>    
