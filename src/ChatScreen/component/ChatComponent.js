@@ -38,48 +38,48 @@ function ChatComponent() {
   }, [socket]);
 
   return (
-    <div className="chat-window">
-      <div className="nav">
-          <NavbarContainer/>
-      </div>
-      <div className="chat-body">
-        <ScrollToBottom className="message-container">
-        <p>Welcome to the chat room!</p>
-          {messageList.map((messageContent) => {
-            return (
-              <div
-                className="message"
-                id={username === messageContent.author ? "you" : "other"}
-              >
-                <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
-                  </div>
-                  <div className="message-meta">
-                    <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
+    <div className="chat-screen">
+      <NavbarContainer/>
+      <div className="chat-zone">        
+        <div className="chat-body">
+          <ScrollToBottom className="message-container">
+          <p>Welcome to the chat room!</p>
+            {messageList.map((messageContent) => {
+              return (
+                <div
+                  className="message"
+                  id={username === messageContent.author ? "you" : "other"}
+                >
+                  <div>
+                    <div className="message-content">
+                      {messageContent.author + ":" + messageContent.message}
+                    </div>
+                    <div className="message-meta">
+                      <p id="time">{messageContent.time}</p>
+                      <p id="author">{messageContent.author}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </ScrollToBottom>
+              );
+            })}
+          </ScrollToBottom>
+        </div>
+        <div className="chat-footer">
+          <input
+            type="text"
+            value={currentMessage}
+            placeholder="Envoyer un message"
+            onChange={(event) => {
+              setCurrentMessage(event.target.value);
+            }}
+            onKeyPress={(event) => {
+              event.key === "Enter" && sendMessage();
+            }}
+          />
+          <button onClick={sendMessage}>&#9658;</button>
+        </div>
       </div>
-      <div className="chat-footer">
-        <input
-          type="text"
-          value={currentMessage}
-          placeholder="Envoyer un message"
-          onChange={(event) => {
-            setCurrentMessage(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-        />
-        <button onClick={sendMessage}>&#9658;</button>
-      </div>
-    </div>
+    </div>    
   );
 }
 

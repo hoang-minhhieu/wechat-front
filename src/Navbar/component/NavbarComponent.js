@@ -3,12 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import "../style/Navbar.css"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+const styles = {
+    largeIcon: {
+      width: 40,
+      height: 40,
+      color: "white"
+    }
+  };
+
 function NavbarComponent(props) {
     return(
-        <div id={"navbar-light"} className={"navbar navbar-expand-lg navbar-light"}>
+        <div className={"navbar"}>
             <div className="accountDiv">                     
-                <button id="btn-profile" data-toggle="dropdown">
-                    <AccountCircleIcon/>
+                <button className="btn-profile" data-toggle="dropdown">
+                    <AccountCircleIcon style={styles.largeIcon}/>
                 </button>
             </div>
         </div>       

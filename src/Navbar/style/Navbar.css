@@ -1,15 +1,14 @@
-.navbar-light{
-    max-height: 15vh;
-    width: 100%;
-    overflow: auto;
+.navbar{
+    height: 50px;
+    background-color: rgb(47, 47, 53);
 }
 
 .accountDiv {
-    display: block;
     float: right;
 }
 
-btn-profile{
-    background-color: #ffff;
+.btn-profile{
+    background-color: rgb(47, 47, 53);
     border: none;
+    height: 50px;
 }

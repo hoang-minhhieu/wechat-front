@@ -1,0 +1,60 @@
+body {
+    width: 100%;
+    margin: auto;
+    background-color: rgb(2, 2, 2);
+}
+
+.joinChatContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid rgb(24, 24, 27);
+    padding: 10px;
+    display: grid;
+    background-color: rgb(24, 24, 27);
+    border-radius: 5px;
+}
+
+.liveChatContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    left: 40%; 
+}
+
+.joinChatContainer h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: white
+}
+
+.joinChatContainer input {
+    width: 400px;
+    height: 40px;
+    margin: 7px;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.joinChatContainer button {
+    width: 225px;
+    height: 50px;
+    margin: 7px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+    background: rgb(145, 71, 255);
+    color: #fff;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.joinChatContainer button:hover {
+    background: rgb(119, 44, 232);
+}

@@ -12,7 +12,7 @@ function LoginComponent() {
   const joinRoom = () => {
     if (username !== "" && room !== "") {
       socket.emit("join_room", room);
-      navigate("/chat", { state: {user: username, room: room}});
+      navigate("/chat", { state: {username: username, room: room}});
     }
   };
 
