@@ -9,10 +9,15 @@ function LoginComponent() {
   const [room, setRoom] = useState("");
   const navigate = useNavigate();
 
+  
+  const getRandomColor = () => {
+    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  }
+
   const joinRoom = () => {
     if (username !== "" && room !== "") {
       socket.emit("join_room", room);
-      navigate("/chat", { state: {username: username, room: room}});
+      navigate("/chat", { state: {username: username, userColor: getRandomColor(), room: room}});
     }
   };
 

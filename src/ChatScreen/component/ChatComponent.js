@@ -12,12 +12,14 @@ function ChatComponent() {
   const socket = useContext(SocketContext);
   const username = location.state.username;
   const room = location.state.room
+  const userColor = location.state.userColor;
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
         room: room,
         author: username,
+        userColor: userColor,
         message: currentMessage,
         time:
           new Date(Date.now()).getHours() +
@@ -36,7 +38,7 @@ function ChatComponent() {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
-
+  
   return (
     <div className="chat-screen">
       <NavbarContainer/>
@@ -53,12 +55,8 @@ function ChatComponent() {
                 >
                   <div>
                     <div className="message-content">
-                      <span id="author">{messageContent.author}</span> : <span id="content">{messageContent.message}</span>
+                      <span style={{color: messageContent.userColor}} id="author">{messageContent.author}</span> : <span id="content">{messageContent.message}</span>
                     </div>
-                    {/* <div className="message-meta">
-                      <p id="time">{messageContent.time}</p>
-                      <p id="author">{messageContent.author}</p>
-                    </div> */}
                   </div>
                 </div>
               );
