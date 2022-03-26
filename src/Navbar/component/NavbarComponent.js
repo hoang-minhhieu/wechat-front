@@ -1,23 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import "../style/Navbar.css"
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React, { useEffect, useState, useRef  } from "react";
+import { useNavigate } from "react-router-dom";
+import "../style/Navbar.css";
+import userIcon from "../../../src/assets/images/user_icon.png";
 
 const styles = {
+    normalIcon:{
+        width: 40,
+        height: 40
+    },
     largeIcon: {
-      width: 40,
-      height: 40,
-      color: "white"
+      width: 60,
+      height: 60
     }
   };
 
+
+
 function NavbarComponent(props) {
+    const navigate = useNavigate(); 
+    const [dropdown, setDropdown] = useState(false); 
+    
     return(
         <div className={"navbar"}>
-            <div className="accountDiv">                     
-                <button className="btn-profile" data-toggle="dropdown">
-                    <AccountCircleIcon style={styles.largeIcon}/>
+            <div className="accountDiv">                  
+                <button className="btn-profile" onClick={() => setDropdown(!dropdown)}>
+                    <img src={userIcon} alt='image' className="navbar-userIcon" style={styles.normalIcon}/>
                 </button>
+                {dropdown && (
+                    <div className="dropdown">
+                        <ul>
+                        <li><img src={userIcon} className="navbar-userIcon" style={styles.largeIcon}/>{props.username}</li>
+                        <li>My profile</li>
+                        <li>Log out</li>
+                        </ul>
+                    </div>
+                )}
             </div>
         </div>       
     )
