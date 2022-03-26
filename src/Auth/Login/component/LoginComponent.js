@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { SocketContext } from "../../../Context/Socket";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../../../UserPool";
 
 function LoginComponent(props) {
   const socket = useContext(SocketContext);
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
-  const [guest, setGuestMode] = useState(true);
+  const [guest, setGuestMode] = useState(false);
   const navigate = useNavigate();
   const connectedUsers = new Map();
   const { dispatchUser } = props
@@ -41,7 +43,32 @@ function LoginComponent(props) {
     event.preventDefault();
     if (guest)
       joinRoom()
-    else console.log("TOTO: ", password)
+    else {
+      const user = new CognitoUser({
+        Username: username,
+        Pool: UserPool,
+      })
+
+      const authDetails = new AuthenticationDetails({
+        Username: username,
+        Password: password,
+      })
+
+      user.authenticateUser(authDetails, {
+        onSuccess: (data) => {
+          console.log("onSuccess: ", data);
+          socket.emit("join_room", room);
+          navigate("/chat", { state: {connectedUsers: connectedUsers, username: username, userColor: getRandomColor(), room: room}});
+        },
+        onFailure: (err) => {
+          setHasError(true)
+          console.log("onFailure: ", err);
+        },
+        newPasswordRequired: (data) => {
+          console.log("newPasswordRequired: ", data);
+        }
+      })
+    }
   };
 
   //Toggler de la visiblité des champs de mdp
@@ -86,15 +113,14 @@ function LoginComponent(props) {
                           </div>
                       </div>                     
                     </> : <>
-                    <label first="ok">Email</label>
+                    <label first="ok">Username</label>
                       <div className="login-block">
                           <div className="control login-input-center">
                               <input
                                   className="input"
                                   required={true}
-                                  type="email"
+                                  type="text"
                                   id="username"
-                                  aria-describedby="emailHelp"
                                   value={username}
                                   onChange={(e) => handleInputChange(e, setUsername)}
                               />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Navbar.css";
 import userIcon from "../../../src/assets/images/user_icon.png";
+import Pool from "../../UserPool";
 
 const styles = {
     normalIcon:{
@@ -14,12 +15,18 @@ const styles = {
     }
   };
 
-
-
 function NavbarComponent(props) {
     const navigate = useNavigate(); 
     const [dropdown, setDropdown] = useState(false); 
     
+    function handleLogoutClick(){       
+        const user = Pool.getCurrentUser();
+        if (user) {
+            user.signOut();
+            navigate("/login")
+        }
+    }
+
     return(
         <div className={"navbar"}>
             <div className="accountDiv">                  
@@ -27,12 +34,12 @@ function NavbarComponent(props) {
                     <img src={userIcon} alt="navbar-icon" className="navbar-userIcon" style={styles.normalIcon}/>
                 </button>
                 {dropdown && (
-                    <div className="dropdown">
-                        <ul>
-                        <li><img src={userIcon} alt="profile-icon" className="navbar-userIcon" style={styles.largeIcon}/>{props.username}</li>
-                        <li>My profile</li>
-                        <li>Log out</li>
-                        </ul>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div className="dropdown-item"
+                            onClick={() => navigate("/login")}>My profile</div>
+                        <div className="dropdown-item"
+                            href="/#"
+                            onClick={() => handleLogoutClick()}>Log out</div>
                     </div>
                 )}
             </div>

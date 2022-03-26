@@ -32,6 +32,7 @@ body {
     background-color: rgba(255, 255, 255, .9);
     padding: 0 16px 16px;
     margin: auto;
+    display: grid;
 }
 
 .login-card-body label[first=ok] {
@@ -65,6 +66,12 @@ body {
     width: 180px;
     height: 42px !important;
     float: right;
+}
+
+.login-card-body .login-error-banner {
+    font-size: 1.4rem;
+    text-align: center;
+    color: red;
 }
 
 .login-block{

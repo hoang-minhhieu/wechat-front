@@ -1,9 +1,9 @@
 import "../style/Register.css";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { SocketContext } from "../../../Context/Socket";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import UserPool from "../../../UserPool";
+import { useNavigate } from "react-router-dom";
 
 function RegisterComponent(props) {
     const [username, setUsername] = useState("");
@@ -13,11 +13,24 @@ function RegisterComponent(props) {
     const [hasError, setHasError] = useState(false)
     const [isToggled, setIsToggled] = useState(false)
     const [isConfirmToggled, setIsConfirmToggle] = useState(false)
+    const navigate = useNavigate();
 
     //Handler du login selon le type (client ou vendeur) et redirige vers la homepage
     function handleSubmit(event) {
         event.preventDefault();
-        console.log("TOTO: ", password)
+        var attributeList = [];
+        var dataEmail = {
+            Name: 'email',
+            Value: email,
+        };
+        attributeList.push(dataEmail);
+        UserPool.signUp(username, password, attributeList, null, (err, data)=> {
+            if (err) {
+                console.error(err);
+            }
+            console.log(data);
+            navigate("/login")
+        })
     };
 
     //Toggler de la visiblité des champs de mdp
@@ -78,8 +91,8 @@ function RegisterComponent(props) {
                                         type="email"
                                         id="username"
                                         aria-describedby="emailHelp"
-                                        value={username}
-                                        onChange={(e) => handleInputChange(e, setUsername)}
+                                        value={email}
+                                        onChange={(e) => handleInputChange(e, setEmail)}
                                     />
                                 </div>
                             </div>
