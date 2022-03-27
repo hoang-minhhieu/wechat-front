@@ -13,6 +13,7 @@ function ChatComponent() {
   const [messageList, setMessageList] = useState([]);
   const [showEmojiPicker, setIsToggled] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [totalUsers, setTotalUsers] = useState(0);
   const location = useLocation();
   const socket = useContext(SocketContext);
   const connectedUsers = location.state.connectedUsers;
@@ -43,6 +44,9 @@ function ChatComponent() {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
+    socket.on("receive_total_users", (data) => {
+      setTotalUsers(data);
+    });
   }, [socket]);
   
   const onEmojiClick = (event, emojiObject) => {
@@ -59,13 +63,13 @@ function ChatComponent() {
       <NavbarContainer username={username}/>
       <div className="chat-window">
         <div className="chat-list-users">
-          <p>Connected users</p>
+          <p>Connected users {totalUsers}</p>
           <NavbarConnectedUsersComponent connectedUsers={connectedUsers}/>
         </div>  
         <div className="chat-zone">        
           <div className="chat-body">
             <ScrollToBottom className="message-container">
-            <p>Welcome to the chat room!</p>
+            <p>Welcome to the chat room {room}!</p>
               {messageList.map((messageContent) => {
                 return (
                   <div

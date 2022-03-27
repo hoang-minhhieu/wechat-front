@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Navbar.css";
 import userIcon from "../../../src/assets/images/user_icon.png";
 import Pool from "../../UserPool";
+import { SocketContext } from "../../Context/Socket";
 
 const styles = {
     normalIcon:{
@@ -18,11 +19,13 @@ const styles = {
 function NavbarComponent(props) {
     const navigate = useNavigate(); 
     const [dropdown, setDropdown] = useState(false); 
+    const socket = useContext(SocketContext);
     
     function handleLogoutClick(){       
         const user = Pool.getCurrentUser();
         if (user) {
             user.signOut();
+            socket.emit("disconnect");
             navigate("/login")
         }
     }
