@@ -28,7 +28,6 @@ function RegisterComponent(props) {
             if (err) {
                 console.error(err);
             }
-            console.log(data);
             navigate("/login")
         })
     };

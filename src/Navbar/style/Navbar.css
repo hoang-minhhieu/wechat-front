@@ -10,7 +10,6 @@
 
 .btn-profile{
     background-color: lightblue;
-    ;
     border: none;
     width: fit-content;
     height: -webkit-fill-available;
@@ -40,4 +39,38 @@
     background-color: rgba(0, 0, 0, 0.14);
     cursor: pointer;
 }
+
+ .navbar-list{
+    display: grid;
+}
+
+.navbar-list-users{
+    overflow : hidden;
+    font-size: 1.2rem;
+    display: flex;
+    margin: 5px 0;
+}
+
+.navbar-list-users:hover{
+    background-color: rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+
+/*
+.navbar-list li{
+  display: block;
+  padding: 5px;
+  border: 1px solid blue;    
+  background-color: yellow;
+}
+
+.navbar-list-users{
+    color: black;
+    position: absolute;
+    display: flex;
+    min-width: 0;
+    overflow : hidden;
+    font-size: 1.2rem;
+} */
+
 

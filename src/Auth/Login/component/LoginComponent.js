@@ -7,34 +7,25 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../../../UserPool";
 
-function LoginComponent(props) {
+function LoginComponent() {
   const socket = useContext(SocketContext);
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [guest, setGuestMode] = useState(false);
   const navigate = useNavigate();
-  const connectedUsers = new Map();
-  const { dispatchUser } = props
   const [password, setPassword] = useState("")
   const [hasError, setHasError] = useState(false)
   const [isToggled, setIsToggle] = useState(false)
   const pw = document.getElementById("password");
 
-
   const getRandomColor = () => {
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
   }
 
-  socket.on("user_socket_id", (socketId) =>{
-    connectedUsers.set(socketId, username)
-    console.log("USERS", connectedUsers)
-    dispatchUser(connectedUsers)
-  })
-
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
-      navigate("/chat", { state: {connectedUsers: connectedUsers, username: username, userColor: getRandomColor(), room: room}});
+      socket.emit("join_room", room, username);
+      navigate("/chat", { state: { username: username, userColor: getRandomColor(), room: room}});
     }
   };
 
@@ -57,8 +48,8 @@ function LoginComponent(props) {
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
           console.log("onSuccess: ", data);
-          socket.emit("join_room", room);
-          navigate("/chat", { state: {connectedUsers: connectedUsers, username: username, userColor: getRandomColor(), room: room}});
+          socket.emit("join_room", room, username);
+          navigate("/chat", { state: { username: username, userColor: getRandomColor(), room: room}});       
         },
         onFailure: (err) => {
           setHasError(true)
@@ -70,6 +61,7 @@ function LoginComponent(props) {
       })
     }
   };
+
 
   //Toggler de la visiblité des champs de mdp
   function togglePassword() {

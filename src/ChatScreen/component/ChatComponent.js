@@ -14,9 +14,9 @@ function ChatComponent() {
   const [showEmojiPicker, setIsToggled] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const location = useLocation();
   const socket = useContext(SocketContext);
-  const connectedUsers = location.state.connectedUsers;
   const username = location.state.username;
   const room = location.state.room
   const userColor = location.state.userColor;
@@ -39,19 +39,23 @@ function ChatComponent() {
       setCurrentMessage("");
     }
   };
-
+  
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
+    });
+    socket.on("receive_list_users", (data) => {
+      setConnectedUsers(data);
     });
     socket.on("receive_total_users", (data) => {
       setTotalUsers(data);
     });
   }, [socket]);
   
+
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject.emoji);
-    setCurrentMessage(currentMessage + chosenEmoji);
+    setCurrentMessage(currentMessage + emojiObject.emoji);
   };
 
   function toggleEmojiPicker() {
@@ -59,7 +63,7 @@ function ChatComponent() {
   }
 
   return (
-    <div className="chat-screen">
+    <section className="chat-screen">
       <NavbarContainer username={username}/>
       <div className="chat-window">
         <div className="chat-list-users">
@@ -107,7 +111,8 @@ function ChatComponent() {
           </div>         
         </div> 
       </div>
-    </div>    
+      <div className="footer"></div>
+    </section>    
   );
 }
 
