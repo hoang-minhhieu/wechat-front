@@ -32,6 +32,7 @@ body {
     background-color: rgba(255, 255, 255, .9);
     padding: 0 16px 16px;
     margin: auto;
+    display: inline-grid;
 }
 
 .register-card-body label[first=ok] {
@@ -44,10 +45,15 @@ body {
     margin: .7rem 0 3px 0;
 }
 
-.register-card-body button{
-    background-color: #f2f2f2;
-    color: black;
-    font-weight: bolder;
+.register-back{
+    font-weight: 700;
+    font-size: 1rem !important;
+    text-transform: uppercase;
+    border: 0;
+    border-radius: 5px;
+    width: 180px;
+    height: 42px !important;
+    margin-top: 10px;
 }
 
 .register-card-body button:hover{
@@ -59,12 +65,22 @@ body {
     font-weight: 700;
     font-size: 1rem !important;
     text-transform: uppercase;
-    margin: 0;
+    margin-left: 30px;
     border: 0;
     border-radius: 5px;
     width: 180px;
     height: 42px !important;
     float: right;
+    background-color: red;
+    color: black;
+    font-weight: bolder;
+}
+
+.register-card-body .register-error-banner {
+    font-size: 1.4rem;
+    text-align: center;
+    color: red;
+    margin-bottom: 15px;
 }
 
 .register-block{
@@ -111,7 +127,7 @@ body {
 
 .register-bottom-container{
     margin-top: 20px;
-    display: grid;
+    display: block;
 }
 
 .blank{

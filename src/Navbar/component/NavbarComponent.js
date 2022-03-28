@@ -19,9 +19,10 @@ const styles = {
 function NavbarComponent(props) {
     const navigate = useNavigate(); 
     const [dropdown, setDropdown] = useState(false); 
-    const socket = useContext(SocketContext);
-    const username = ""
     
+    /**
+     * Event when user log out
+     */
     function handleLogoutClick(){       
         const user = Pool.getCurrentUser();
         if (user) {
@@ -34,7 +35,7 @@ function NavbarComponent(props) {
         <div className={"navbar"}>
             <div className="accountDiv">                  
                 <button className="btn-profile" onClick={() => setDropdown(!dropdown)}>
-                Welcome {props.username}<img src={userIcon} alt="navbar-icon" className="navbar-userIcon" style={styles.normalIcon}/>
+                Welcome <b>{props.username}</b><img src={userIcon} alt="navbar-icon" className="navbar-userIcon" style={styles.normalIcon}/>
                 </button>
                 {dropdown && (
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

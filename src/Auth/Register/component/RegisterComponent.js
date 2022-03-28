@@ -15,24 +15,33 @@ function RegisterComponent(props) {
     const [isConfirmToggled, setIsConfirmToggle] = useState(false)
     const navigate = useNavigate();
 
-    //Handler du login selon le type (client ou vendeur) et redirige vers la homepage
+    /**
+     * Handle register event
+     * @param {*} event 
+     */
     function handleSubmit(event) {
         event.preventDefault();
+        if (password !== confirmPassword)
+            setHasError(true)
         var attributeList = [];
         var dataEmail = {
             Name: 'email',
             Value: email,
         };
         attributeList.push(dataEmail);
+        //Sign up and create user on Cognito
         UserPool.signUp(username, password, attributeList, null, (err, data)=> {
             if (err) {
+                setHasError(true)
                 console.error(err);
-            }
-            navigate("/login")
+            } else 
+                navigate("/login")
         })
     };
 
-    //Toggler de la visiblité des champs de mdp
+    /**
+     * Show/hide password
+     */
     function togglePassword() {
         const pw = document.getElementById("password");
         const type = pw.getAttribute("type") === "password" ? "text" : "password";
@@ -40,7 +49,9 @@ function RegisterComponent(props) {
         setIsToggled(!isToggled);
     };
 
-    //Toggler de la visiblité des champs de mdp
+    /**
+     * Show/hide confirm password
+     */
     function toggleConfirmPassword() {
         const pw = document.getElementById("confirmpassword");
         const type = pw.getAttribute("type") === "password" ? "text" : "password";
@@ -48,15 +59,23 @@ function RegisterComponent(props) {
         setIsConfirmToggle(!isConfirmToggled);
     };
 
-    //Handler des champs d'input
+    /**
+     * Handle value change on input
+     * @param {*} e 
+     * @param {*} setter 
+     */
     function handleInputChange(e, setter) {
         setHasError(false)
         setter(e.target.value)
     }
 
+    /**
+     * Show message when error
+     * @returns 
+     */
     function ShowError() {
         return <span
-            className='login-error-banner badge badge-danger d-block p-2'>Identifiant ou mot de passe incorrect</span>
+            className='register-error-banner'>Password not long enough or different than confirm password</span>
     }
 
     return (
@@ -64,6 +83,14 @@ function RegisterComponent(props) {
             <div className="register-container">
                 <div className="register-card">
                     <div className="register-card-body">
+                        <div>
+                            <button
+                                className="register-back"
+                                onClick={() => navigate("/login")}
+                            >
+                            Back to log in
+                            </button>
+                        </div>
                         <h3>Create a new account</h3>
                         {hasError && <ShowError />}
                         <form onSubmit={handleSubmit}>
@@ -136,11 +163,11 @@ function RegisterComponent(props) {
                                 <button
                                     className="f-right"
                                 >
-                                <span>Sign up</span>
+                                Sign up
                                 </button>
-                            </div>
+                            </div>                             
                         </div>                                                        
-                        </form>
+                        </form>                        
                     </div>
                 </div>
             </div>

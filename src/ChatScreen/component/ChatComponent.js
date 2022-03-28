@@ -21,6 +21,9 @@ function ChatComponent() {
   const room = location.state.room
   const userColor = location.state.userColor;
 
+  /**
+   * Send message in chat
+   */
   const sendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
@@ -53,11 +56,19 @@ function ChatComponent() {
   }, [socket]);
   
 
+  /**
+   * Handle event when select an emoji
+   * @param {*} event 
+   * @param {*} emojiObject 
+   */
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject.emoji);
     setCurrentMessage(currentMessage + emojiObject.emoji);
   };
 
+  /**
+   * Toggle emoji board
+   */
   function toggleEmojiPicker() {
     setIsToggled(!showEmojiPicker)
   }
@@ -67,7 +78,7 @@ function ChatComponent() {
       <NavbarContainer username={username}/>
       <div className="chat-window">
         <div className="chat-list-users">
-          <p>Connected users {totalUsers}</p>
+          <p>Connected users: {totalUsers}</p>
           <NavbarConnectedUsersComponent connectedUsers={connectedUsers}/>
         </div>  
         <div className="chat-zone">        

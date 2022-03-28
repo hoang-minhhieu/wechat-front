@@ -18,10 +18,18 @@ function LoginComponent() {
   const [isToggled, setIsToggle] = useState(false)
   const pw = document.getElementById("password");
 
+  /**
+   * Generate random color to assign to each user
+   * @returns 
+   */
   const getRandomColor = () => {
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
   }
 
+  /**
+   * User connect to a room
+   * Navigate to Chat screen with user infos
+   */
   const joinRoom = () => {
     if (username !== "" && room !== "") {
       socket.emit("join_room", room, username);
@@ -29,12 +37,16 @@ function LoginComponent() {
     }
   };
 
-  //Handler du login selon le type (client ou vendeur) et redirige vers la homepage
+  /**
+   * Handle login event
+   */
   function handleSubmit(event) {
     event.preventDefault();
+    //Join room directly if connect as guest
     if (guest)
       joinRoom()
     else {
+      //Verify account on Cognito
       const user = new CognitoUser({
         Username: username,
         Pool: UserPool,
@@ -63,22 +75,32 @@ function LoginComponent() {
   };
 
 
-  //Toggler de la visiblité des champs de mdp
+  /**
+   * Show/hide password
+   */
   function togglePassword() {
     const type = pw.getAttribute("type") === "password" ? "text" : "password";
     pw.setAttribute("type", type);
     setIsToggle(!isToggled);
   };
 
-  //Handler des champs d'input
+  /**
+   * Handle when value input change
+   * @param {*} e 
+   * @param {*} setter 
+   */
   function handleInputChange(e, setter) {
     setHasError(false)
     setter(e.target.value)
   }
 
+  /**
+   * When error show message
+   * @returns 
+   */
   function ShowError() {
       return <span
-          className='login-error-banner badge badge-danger d-block p-2'>Identifiant ou mot de passe incorrect</span>
+          className='login-error-banner'>Username or password incorrect</span>
   }
 
   return (
