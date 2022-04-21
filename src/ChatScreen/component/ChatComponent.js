@@ -26,15 +26,16 @@ function ChatComponent() {
    */
   const sendMessage = async () => {
     if (currentMessage !== "") {
+      const DateTime = new Date();
       const messageData = {
         room: room,
         author: username,
         userColor: userColor,
         message: currentMessage,
         time:
-          new Date(Date.now()).getHours() +
+          DateTime.getHours() +
           ":" +
-          new Date(Date.now()).getMinutes(),
+          DateTime.getMinutes(),
       };
 
       await socket.emit("send_message", messageData);
